@@ -1,11 +1,11 @@
-# 💇‍♂️ Style N Shine - Salon Billing System
+#  Style N Shine - Salon Billing System
 
 
 A sleek, lightweight web-based billing solution tailored for **Style N Shine Salon**. This system automates the invoicing workflow, handles complex service calculations, and offers instant digital delivery via WhatsApp.
 
 ---
 
-## 📸 Project Previews
+##  Project Previews
 
 ### 1. Main Billing Dashboard
 
@@ -21,7 +21,7 @@ A sleek, lightweight web-based billing solution tailored for **Style N Shine Sal
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
 * **Smart Invoicing:** Professional bill generation with automated numbering (`#0001`) and date tracking.
 * **WhatsApp Integration:** Generates a high-quality snapshot of the bill and opens WhatsApp for instant sharing.
@@ -32,7 +32,7 @@ A sleek, lightweight web-based billing solution tailored for **Style N Shine Sal
 
 ---
 
-## 🛠️ Technical Stack
+##  Technical Stack
 
 | Layer | Technology |
 | :--- | :--- |
@@ -43,7 +43,7 @@ A sleek, lightweight web-based billing solution tailored for **Style N Shine Sal
 
 ---
 
-## 📦 Installation & Setup
+##  Installation & Setup
 
 1.  **Clone the Repository:**
     ```bash
@@ -54,7 +54,7 @@ A sleek, lightweight web-based billing solution tailored for **Style N Shine Sal
 
 ---
 
-## 🌐 Live Website
+##  Live Website
 
 Experience the live system here:  
 👉 **[Style N Shine Billing Portal](https://billingapp.great-site.net/)**
