@@ -24,30 +24,60 @@ if (!empty($data['services'])) {
     }
 }
 
-// build HTML for PDF (professional)
+// build HTML for PDF (Dompdf Compatible using tables instead of Flexbox)
 $html = '<!doctype html><html><head><meta charset="utf-8"><style>
-body{font-family:DejaVu Sans,Arial;margin:0;padding:18px;color:#111}
-.wrap{max-width:700px;margin:0 auto;border:8px solid #d4af37;padding:18px}
-h1{margin:0}
-.small{font-size:12px;color:#555}
-.table{width:100%;border-collapse:collapse;margin-top:12px}
-.table th{background:#111;color:#fff;padding:10px;text-align:left}
-.table td{padding:10px;border-bottom:1px solid #eee}
-.totals{margin-top:12px;display:flex;justify-content:flex-end}
+body{font-family:DejaVu Sans,Arial;margin:0;padding:10px;color:#111;font-size:14px;}
+.wrap{max-width:700px;margin:0 auto;border:6px solid #d4af37;padding:20px;}
+h1{margin:0;font-size:24px;color:#003366;}
+.small{font-size:12px;color:#555;}
+.header-table, .table, .totals-table{width:100%;border-collapse:collapse;}
+.header-table td{vertical-align:top;}
+.table{margin-top:15px;}
+.table th{background:#003366;color:#fff;padding:8px 10px;text-align:left;font-size:13px;}
+.table td{padding:8px 10px;border-bottom:1px solid #eee;font-size:13px;}
+.totals-container{width:100%;margin-top:15px;}
+.totals-table{width:260px;margin-left:auto;}
+.totals-table td{padding:5px 8px;font-size:13px;}
+.invoice-footer{margin-top:20px;border-top:1px dashed #ccc;padding-top:10px;}
 </style></head><body>';
+
 $html .= '<div class="wrap">';
-$html .= '<div style="display:flex;align-items:center;gap:12px"><div><h1>Style N Shine</h1><div class="small">Kankarbagh, Patna</div></div><div style="margin-left:auto;text-align:right"><strong>Invoice #'.htmlspecialchars($data['id']).'</strong><div class="small">'.htmlspecialchars($data['created_at']).'</div></div></div>';
-$html .= '<div style="margin-top:12px"><strong>Billed To:</strong><div>'.htmlspecialchars($data['customer_name']).'</div><div class="small">'.nl2br(htmlspecialchars($data['customer_address'])).'</div><div class="small">Phone: '.htmlspecialchars($data['customer_phone']).'</div></div>';
-$html .= '<table class="table"><thead><tr><th>Service</th><th style="text-align:right">Price (₹)</th></tr></thead><tbody>';
+
+// Header Section using a safe table layout instead of flex
+$html .= '<table class="header-table"><tr>';
+$html .= '<td><h1>Style N Shine</h1><div class="small">Kankarbagh, Patna</div></td>';
+$html .= '<td style="text-align:right;"><strong>Invoice #'.htmlspecialchars($data['id']).'</strong><div class="small">'.htmlspecialchars($data['created_at']).'</div></td>';
+$html .= '</tr></table>';
+
+// Customer Details Section
+$html .= '<div style="margin-top:15px;background:#f9f9f9;padding:10px;border-radius:4px;">';
+$html .= '<strong>Billed To:</strong><div style="font-size:15px;font-weight:bold;margin-top:2px;">'.htmlspecialchars($data['customer_name']).'</div>';
+if(!empty($data['customer_address'])) {
+    $html .= '<div class="small">'.nl2br(htmlspecialchars($data['customer_address'])).'</div>';
+}
+$html .= '<div class="small">Phone: '.htmlspecialchars($data['customer_phone']).'</div>';
+$html .= '</div>';
+
+// Services Table
+$html .= '<table class="table"><thead><tr><th>Service Description</th><th style="text-align:right">Price (₹)</th></tr></thead><tbody>';
 foreach ($rows as $r) {
     $html .= '<tr><td>'.htmlspecialchars($r['label']).'</td><td style="text-align:right">₹ '.$r['price'].'</td></tr>';
 }
 $html .= '</tbody></table>';
-$html .= '<div class="totals"><table><tr><td class="small">Subtotal</td><td style="text-align:right">₹ '.number_format($data['subtotal'],2).'</td></tr>';
+
+// Totals Section using a right-aligned table container
+$html .= '<div class="totals-container"><table class="totals-table">';
+$html .= '<tr><td class="small">Subtotal</td><td style="text-align:right">₹ '.number_format($data['subtotal'],2).'</td></tr>';
 $html .= '<tr><td class="small">GST (18%)</td><td style="text-align:right">₹ '.number_format($data['gst'],2).'</td></tr>';
-$html .= '<tr><td style="font-weight:800">Total</td><td style="text-align:right;font-weight:800">₹ '.number_format($data['total'],2).'</td></tr></table></div>';
-$html .= '<div style="margin-top:18px" class="small">Payment Method: '.htmlspecialchars($data['payment_mode']).'</div>';
-$html .= '<div style="margin-top:18px" class="small">Thank you for visiting Style N Shine!</div>';
+$html .= '<tr><td style="font-weight:bold;border-top:1px solid #333;">Total</td><td style="text-align:right;font-weight:bold;border-top:1px solid #333;">₹ '.number_format($data['total'],2).'</td></tr>';
+$html .= '</table></div>';
+
+// Footer Info
+$html .= '<div class="invoice-footer">';
+$html .= '<div class="small"><strong>Payment Method:</strong> '.htmlspecialchars($data['payment_mode']).'</div>';
+$html .= '<div class="small" style="margin-top:5px;">Thank you for visiting Style N Shine!</div>';
+$html .= '</div>';
+
 $html .= '</div></body></html>';
 
 // render PDF
