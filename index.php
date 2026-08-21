@@ -76,10 +76,22 @@ require 'config.php';
       outline: none;
     }
 
+    .section-title-main {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 25px 0 15px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
     .billing-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
+      margin-bottom: 20px;
     }
 
     .category-card {
@@ -102,6 +114,9 @@ require 'config.php';
 
     .item-list {
       padding: 10px;
+      background: #fdfdfd;
+      border: 1px solid #e0e6ed;
+      border-radius: 8px;
       max-height: 400px;
       overflow-y: auto;
     }
@@ -185,7 +200,6 @@ require 'config.php';
 
     /* Tablets */
 @media (max-width: 1000px) {
-
   .billing-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -199,10 +213,8 @@ require 'config.php';
   }
 }
 
-
 /* Mobile — Structured Layout */
 @media (max-width: 700px) {
-
   body {
     background: #ffffff;
   }
@@ -213,7 +225,6 @@ require 'config.php';
     border-radius: 14px;
   }
 
-  /* ---------- HEADER STRUCTURE ---------- */
   .header {
     padding: 12px 14px;
     flex-wrap: wrap;
@@ -240,18 +251,11 @@ require 'config.php';
     font-size: 13px;
   }
 
-
-  /* ---------- SECTION HEADINGS ---------- */
-  .section-title {
-    font-size: 15px;
-    font-weight: 700;
-    margin: 8px 0;
-    color: #003366;
-    letter-spacing: .5px;
+  .section-title-main {
+    font-size: 16px;
+    margin: 20px 0 10px 0;
   }
 
-
-  /* ---------- CUSTOMER BLOCK ---------- */
   .cust-meta {
     flex-direction: column;
     gap: 10px;
@@ -264,28 +268,9 @@ require 'config.php';
     font-size: 14px;
   }
 
-
-  /* ---------- BILLING GRID STRUCTURE ---------- */
   .billing-grid {
     grid-template-columns: 1fr;
     gap: 16px;
-  }
-
-  .category-card {
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #dde3ed;
-  }
-
-  /* Sticky category headings */
-  .category-card h3 {
-    position: sticky;
-    top: 0;
-    background: #eef3ff;
-    padding: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: .4px;
   }
 
   .item-list {
@@ -293,8 +278,6 @@ require 'config.php';
     padding: 10px;
   }
 
-
-  /* ---------- ROW STRUCTURE ---------- */
   .row {
     flex-direction: column;
     align-items: flex-start;
@@ -318,17 +301,13 @@ require 'config.php';
     font-weight: 700;
   }
 
-
-  /* ---------- FOOTER — MOBILE BILLING BAR ---------- */
   .footer-bar {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-
     border-radius: 14px 14px 0 0;
     padding: 14px;
-
     flex-direction: column;
     gap: 10px;
     text-align: center;
@@ -353,23 +332,14 @@ require 'config.php';
   }
 }
 
-
-/* ---------- Extra Small Phones ---------- */
 @media (max-width: 400px) {
-
   .header h1 {
     font-size: 16px;
   }
-
-  .row label {
-    font-size: 13px;
-  }
-
-  .price-label {
+  .row label, .price-label {
     font-size: 13px;
   }
 }
-
   </style>
 </head>
 
@@ -392,85 +362,122 @@ require 'config.php';
         <input type="text" name="address" placeholder="Notes / Address">
       </div>
 
-      
-        <div class="billing-grid">
-    <!-- Page 1 Items -->
-    <div class="item-list">
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Cut|800" data-price="800"> Hair Cut</label><span class="price-label">₹800</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Wash + Dry|300" data-price="300"> Hair Wash + Dry</label><span class="price-label">₹300</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Child Hair Cut|300" data-price="300"> Child Hair Cut</label><span class="price-label">₹300</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Spa Treatment (Normal)|1200" data-price="1200"> Spa Treatment (Normal)</label><span class="price-label">₹1200</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Anti Dandruff Treatment|2000" data-price="2000"> Anti Dandruff Treatment</label><span class="price-label">₹2000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Loss Treatment|200" data-price="200"> Hair Loss Treatment</label><span class="price-label">₹200</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Dry and Damage Treatment|1800" data-price="1800"> Dry and Damage Treatment</label><span class="price-label">₹1800</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Global Colour (Long)|5000" data-price="5000"> Global Colour (Long)</label><span class="price-label">₹5000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Global Colour (Medium)|3500" data-price="3500"> Global Colour (Medium)</label><span class="price-label">₹3500</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Global Colour (Short)|3000" data-price="3000"> Global Colour (Short)</label><span class="price-label">₹3000</span></div>
-    </div>
-    
-    <div class="item-list">
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Highlight Per Fail (Streak)|100" data-price="100"> Highlight Per Fail</label><span class="price-label">₹100</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Straightening (Long)|6000" data-price="6000"> Hair Straightening (Long)</label><span class="price-label">₹6000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Straightening (Short)|4000" data-price="4000"> Hair Straightening (Short)</label><span class="price-label">₹4000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Straightening (Medium)|5000" data-price="5000"> Hair Straightening (Medium)</label><span class="price-label">₹5000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Head Massage|500" data-price="500"> Head Massage</label><span class="price-label">₹500</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Keratin (Long)|5500" data-price="5500"> Keratin (Long)</label><span class="price-label">₹5500</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Keratin (Medium)|4000" data-price="4000"> Keratin (Medium)</label><span class="price-label">₹4000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Keratin (Short)|3500" data-price="3500"> Keratin (Short)</label><span class="price-label">₹3500</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Botox (Long)|6000" data-price="6000"> Botox (Long)</label><span class="price-label">₹6000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Botox (Medium)|5000" data-price="5000"> Botox (Medium)</label><span class="price-label">₹5000</span></div>
-    </div>
+      <!-- PARLOUR SERVICES -->
+      <div class="section-title-main">Parlour Services</div>
+      <div class="billing-grid">
+        <!-- Parlour Page 1 Items -->
+        <div class="item-list">
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Cut|800" data-price="800"> Hair Cut</label><span class="price-label">₹800</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Wash + Dry|300" data-price="300"> Hair Wash + Dry</label><span class="price-label">₹300</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Child Hair Cut|300" data-price="300"> Child Hair Cut</label><span class="price-label">₹300</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Spa Treatment (Normal)|1200" data-price="1200"> Spa Treatment (Normal)</label><span class="price-label">₹1200</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Anti Dandruff Treatment|2000" data-price="2000"> Anti Dandruff Treatment</label><span class="price-label">₹2000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Loss Treatment|200" data-price="200"> Hair Loss Treatment</label><span class="price-label">₹200</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Dry and Damage Treatment|1800" data-price="1800"> Dry and Damage Treatment</label><span class="price-label">₹1800</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Global Colour (Long)|5000" data-price="5000"> Global Colour (Long)</label><span class="price-label">₹5000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Global Colour (Medium)|3500" data-price="3500"> Global Colour (Medium)</label><span class="price-label">₹3500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Global Colour (Short)|3000" data-price="3000"> Global Colour (Short)</label><span class="price-label">₹3000</span></div>
+        </div>
+        
+        <div class="item-list">
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Highlight Per Fail (Streak)|100" data-price="100"> Highlight Per Fail</label><span class="price-label">₹100</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Straightening (Long)|6000" data-price="6000"> Hair Straightening (Long)</label><span class="price-label">₹6000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Straightening (Short)|4000" data-price="4000"> Hair Straightening (Short)</label><span class="price-label">₹4000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Straightening (Medium)|5000" data-price="5000"> Hair Straightening (Medium)</label><span class="price-label">₹5000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Head Massage|500" data-price="500"> Head Massage</label><span class="price-label">₹500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Keratin (Long)|5500" data-price="5500"> Keratin (Long)</label><span class="price-label">₹5500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Keratin (Medium)|4000" data-price="4000"> Keratin (Medium)</label><span class="price-label">₹4000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Keratin (Short)|3500" data-price="3500"> Keratin (Short)</label><span class="price-label">₹3500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Botox (Long)|6000" data-price="6000"> Botox (Long)</label><span class="price-label">₹6000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Botox (Medium)|5000" data-price="5000"> Botox (Medium)</label><span class="price-label">₹5000</span></div>
+        </div>
 
-    <div class="item-list">
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Botox (Short)|4000" data-price="4000"> Botox (Short)</label><span class="price-label">₹4000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Root Touchup|1000" data-price="1000"> Root Touchup</label><span class="price-label">₹1000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Bridal Makeup|7000" data-price="7000"> Bridal Makeup</label><span class="price-label">₹7000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Engagement Makeup|5000" data-price="5000"> Engagement Makeup</label><span class="price-label">₹5000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Reception Makeup|4000" data-price="4000"> Reception Makeup</label><span class="price-label">₹4000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Groom Makeup|3000" data-price="3000"> Groom Makeup</label><span class="price-label">₹3000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Light Makeup|2000" data-price="2000"> Light Makeup</label><span class="price-label">₹2000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Styling (Stylish Women)|1000" data-price="1000"> Hair Styling (Stylish Women)</label><span class="price-label">₹1000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Ironing|700" data-price="700"> Ironing</label><span class="price-label">₹700</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Tong|700" data-price="700"> Tong</label><span class="price-label">₹700</span></div>
-    </div>
+        <div class="item-list">
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Botox (Short)|4000" data-price="4000"> Botox (Short)</label><span class="price-label">₹4000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Root Touchup|1000" data-price="1000"> Root Touchup</label><span class="price-label">₹1000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Bridal Makeup|7000" data-price="7000"> Bridal Makeup</label><span class="price-label">₹7000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Engagement Makeup|5000" data-price="5000"> Engagement Makeup</label><span class="price-label">₹5000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Reception Makeup|4000" data-price="4000"> Reception Makeup</label><span class="price-label">₹4000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Groom Makeup|3000" data-price="3000"> Groom Makeup</label><span class="price-label">₹3000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Light Makeup|2000" data-price="2000"> Light Makeup</label><span class="price-label">₹2000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Styling (Stylish Women)|1000" data-price="1000"> Hair Styling (Stylish Women)</label><span class="price-label">₹1000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Ironing|700" data-price="700"> Ironing</label><span class="price-label">₹700</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Tong|700" data-price="700"> Tong</label><span class="price-label">₹700</span></div>
+        </div>
 
-    <!-- Page 2 Items -->
-    <div class="item-list">
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Do|800" data-price="800"> Hair Do</label><span class="price-label">₹800</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="O3+ Facial|3000" data-price="3000"> O3+ Facial</label><span class="price-label">₹3000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="O3+ D-tan|600" data-price="600"> O3+ D-tan</label><span class="price-label">₹600</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="O3+ Cleanup|1000" data-price="1000"> O3+ Cleanup</label><span class="price-label">₹1000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Lotus Facial|1500" data-price="1500"> Lotus Facial</label><span class="price-label">₹1500</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Lotus Facial Cleanup|1000" data-price="1000"> Lotus Facial Cleanup</label><span class="price-label">₹1000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Raga D-tan|500" data-price="500"> Raga D-tan</label><span class="price-label">₹500</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Shahnaz Facial|800" data-price="800"> Shahnaz Facial</label><span class="price-label">₹800</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Natures Facial|700" data-price="700"> Natures Facial</label><span class="price-label">₹700</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Shahnaz Cleanup|600" data-price="600"> Shahnaz Cleanup</label><span class="price-label">₹600</span></div>
-    </div>
+        <!-- Parlour Page 2 Items -->
+        <div class="item-list">
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Do|800" data-price="800"> Hair Do</label><span class="price-label">₹800</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="O3+ Facial|3000" data-price="3000"> O3+ Facial</label><span class="price-label">₹3000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="O3+ D-tan|600" data-price="600"> O3+ D-tan</label><span class="price-label">₹600</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="O3+ Cleanup|1000" data-price="1000"> O3+ Cleanup</label><span class="price-label">₹1000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Lotus Facial|1500" data-price="1500"> Lotus Facial</label><span class="price-label">₹1500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Lotus Facial Cleanup|1000" data-price="1000"> Lotus Facial Cleanup</label><span class="price-label">₹1000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Raga D-tan|500" data-price="500"> Raga D-tan</label><span class="price-label">₹500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Shahnaz Facial|800" data-price="800"> Shahnaz Facial</label><span class="price-label">₹800</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Natures Facial|700" data-price="700"> Natures Facial</label><span class="price-label">₹700</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Shahnaz Cleanup|600" data-price="600"> Shahnaz Cleanup</label><span class="price-label">₹600</span></div>
+        </div>
 
-    <div class="item-list">
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Natures Cleanup|600" data-price="600"> Natures Cleanup</label><span class="price-label">₹600</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Oxy D-tan|500" data-price="500"> Oxy D-tan</label><span class="price-label">₹500</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Face Bleach|500" data-price="500"> Face Bleach</label><span class="price-label">₹500</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Under Arms|100" data-price="100"> Wax Under Arms</label><span class="price-label">₹100</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Half Leg|400" data-price="400"> Wax Half Leg</label><span class="price-label">₹400</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Full Leg|700" data-price="700"> Wax Full Leg</label><span class="price-label">₹700</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Full Body|2000" data-price="2000"> Wax Full Body</label><span class="price-label">₹2000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Full Hand|500" data-price="500"> Wax Full Hand</label><span class="price-label">₹500</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Half Hand|300" data-price="300"> Wax Half Hand</label><span class="price-label">₹300</span></div>
-    </div>
+        <div class="item-list">
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Natures Cleanup|600" data-price="600"> Natures Cleanup</label><span class="price-label">₹600</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Oxy D-tan|500" data-price="500"> Oxy D-tan</label><span class="price-label">₹500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Face Bleach|500" data-price="500"> Face Bleach</label><span class="price-label">₹500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Under Arms|100" data-price="100"> Wax Under Arms</label><span class="price-label">₹100</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Half Leg|400" data-price="400"> Wax Half Leg</label><span class="price-label">₹400</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Full Leg|700" data-price="700"> Wax Full Leg</label><span class="price-label">₹700</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Full Body|2000" data-price="2000"> Wax Full Body</label><span class="price-label">₹2000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Full Hand|500" data-price="500"> Wax Full Hand</label><span class="price-label">₹500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Wax Half Hand|300" data-price="300"> Wax Half Hand</label><span class="price-label">₹300</span></div>
+        </div>
 
-    <div class="item-list">
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Threading Eyebrows|50" data-price="50"> Threading Eyebrows</label><span class="price-label">₹50</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Threading Forehead|50" data-price="50"> Threading Forehead</label><span class="price-label">₹50</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Threading Full Face|150" data-price="150"> Threading Full Face</label><span class="price-label">₹150</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Pedicure|1200" data-price="1200"> Pedicure</label><span class="price-label">₹1200</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Manicure|800" data-price="800"> Manicure</label><span class="price-label">₹800</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Polish|100" data-price="100"> Hair Polish</label><span class="price-label">₹100</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Full Body Polish|3000" data-price="3000"> Full Body Polish</label><span class="price-label">₹3000</span></div>
-        <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Full Body Bleach|2500" data-price="2500"> Full Body Bleach</label><span class="price-label">₹2500</span></div>
-    </div>
-</div>
+        <div class="item-list">
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Threading Eyebrows|50" data-price="50"> Threading Eyebrows</label><span class="price-label">₹50</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Threading Forehead|50" data-price="50"> Threading Forehead</label><span class="price-label">₹50</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Threading Full Face|150" data-price="150"> Threading Full Face</label><span class="price-label">₹150</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Pedicure|1200" data-price="1200"> Pedicure</label><span class="price-label">₹1200</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Manicure|800" data-price="800"> Manicure</label><span class="price-label">₹800</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Hair Polish|100" data-price="100"> Hair Polish</label><span class="price-label">₹100</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Full Body Polish|3000" data-price="3000"> Full Body Polish</label><span class="price-label">₹3000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Full Body Bleach|2500" data-price="2500"> Full Body Bleach</label><span class="price-label">₹2500</span></div>
+        </div>
+      </div>
+
+      <!-- BOUTIQUE SERVICES -->
+      <div class="section-title-main">Boutique Services</div>
+      <div class="billing-grid">
+        <div class="item-list">
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Kurti Astar|400" data-price="400"> Kurti Astar</label><span class="price-label">₹400</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Suit Salwar|700" data-price="700"> Suit Salwar</label><span class="price-label">₹700</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Pant Suit|750" data-price="750"> Pant Suit</label><span class="price-label">₹750</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Pant|400" data-price="400"> Pant</label><span class="price-label">₹400</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Palzo|400" data-price="400"> Palzo</label><span class="price-label">₹400</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Normal Blouse Astar|700" data-price="700"> Normal Blouse Astar</label><span class="price-label">₹700</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Rubiya Blouse|350" data-price="350"> Rubiya Blouse</label><span class="price-label">₹350</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Padded Blouse (Normal)|1400" data-price="1400"> Padded Blouse (Normal)</label><span class="price-label">₹1400</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Bridal Blouse|2500" data-price="2500"> Bridal Blouse</label><span class="price-label">₹2500</span></div>
+        </div>
+
+        <div class="item-list">
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Half Astar Suit|900" data-price="900"> Half Astar Suit</label><span class="price-label">₹900</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Full Astar Suit|1400" data-price="1400"> Full Astar Suit</label><span class="price-label">₹1400</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="One Salwar|400" data-price="400"> One Salwar</label><span class="price-label">₹400</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Frock Umbrella|1200" data-price="1200"> Frock Umbrella</label><span class="price-label">₹1200</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Frock Umbrella with Anar|1600" data-price="1600"> Frock Umbrella with Anar</label><span class="price-label">₹1600</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Anarkali|3500" data-price="3500"> Anarkali</label><span class="price-label">₹3500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Kali Frock|2500" data-price="2500"> Kali Frock</label><span class="price-label">₹2500</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Astar Kali Frock|3500" data-price="3500"> Astar Kali Frock</label><span class="price-label">₹3500</span></div>
+        </div>
+
+        <div class="item-list">
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Tulpi Salwar|900" data-price="900"> Tulpi Salwar</label><span class="price-label">₹900</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Lehenga Normal|4000" data-price="4000"> Lehenga Normal</label><span class="price-label">₹4000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Bridal Lehenga with Blouse|9000" data-price="9000"> Bridal Lehenga with Blouse</label><span class="price-label">₹9000</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Ladies Shirt|800" data-price="800"> Ladies Shirt</label><span class="price-label">₹800</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Top|700" data-price="700"> Top</label><span class="price-label">₹700</span></div>
+        </div>
+      </div>
+
       <div class="footer-bar">
         <div class="pay-mode">
           <p style="margin:0 0 5px 0; font-size:12px; opacity:0.8;">PAYMENT MODE</p>
@@ -516,4 +523,4 @@ require 'config.php';
   </script>
 </body>
 
-</html>
+</html>x

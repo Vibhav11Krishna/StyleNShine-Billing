@@ -120,6 +120,13 @@ $salon_address = "G-01, Rana Residency, E Boring Canal Rd, Patna, Bihar 800001";
         table th { background: #003366 !important; color: #fff !important; padding: 10px 12px; text-align: left; font-size: 13px; }
         table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; font-size: 13px; color: #333; }
         
+        .subtotal-row td, .discount-row td {
+            font-size: 13px;
+            color: #555;
+            background: #f8fafc !important;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
         .total-row td { 
             font-weight: bold; 
             font-size: 16px; 
@@ -163,11 +170,11 @@ $salon_address = "G-01, Rana Residency, E Boring Canal Rd, Patna, Bihar 800001";
         .btn-wa { background: #25D366; color: #fff; }
         .btn-print { background: #003366; color: #fff; }
         
-        @media print { 
-            body { background: #fff; }
-            .btn-area { display: none; }
-            #invoiceCapture { border: none; margin: 0; padding: 15px; width: 100%; max-width: 100%; box-shadow: none; }
-        }
+       @media print { 
+    body { background: #fff; }
+    .btn-area, .btn { display: none !important; }
+    #invoiceCapture { border: none; margin: 0; padding: 15px; width: 100%; max-width: 100%; box-shadow: none; }
+}
     </style>
 </head>
 <body>
@@ -206,6 +213,7 @@ $salon_address = "G-01, Rana Residency, E Boring Canal Rd, Patna, Bihar 800001";
             <tbody>
                 <?php
                 $services = explode(",", $bill['services']);
+                $subtotal = 0;
                 foreach($services as $s){
                     $parts = explode(":", $s); 
                     if(count($parts) > 1) {
@@ -213,9 +221,26 @@ $salon_address = "G-01, Rana Residency, E Boring Canal Rd, Patna, Bihar 800001";
                     } else {
                         $details = explode("|", $parts[0]);
                     }
-                    echo "<tr><td>".trim($details[0])."</td><td style='text-align:right;'>₹".number_format(trim($details[1] ?? 0), 2)."</td></tr>";
+                    $sPrice = floatval(trim($details[1] ?? 0));
+                    $subtotal += $sPrice;
+                    echo "<tr><td>".trim($details[0])."</td><td style='text-align:right;'>₹".number_format($sPrice, 2)."</td></tr>";
                 }
+                
+                $discount = isset($bill['discount']) ? floatval($bill['discount']) : 0.00;
                 ?>
+                
+                <tr class="subtotal-row">
+                    <td>Subtotal</td>
+                    <td style="text-align:right;">₹<?= number_format($subtotal, 2) ?></td>
+                </tr>
+
+                <?php if ($discount > 0): ?>
+                <tr class="discount-row">
+                    <td>Discount Applied</td>
+                    <td style="text-align:right; color: #166534;">- ₹<?= number_format($discount, 2) ?></td>
+                </tr>
+                <?php endif; ?>
+
                 <tr class="total-row">
                     <td>GRAND TOTAL</td>
                     <td style="text-align:right;">₹<?= number_format($bill['total'], 2) ?></td>
@@ -246,7 +271,8 @@ $salon_address = "G-01, Rana Residency, E Boring Canal Rd, Patna, Bihar 800001";
     </div>
 </div>
 
-<div class="btn-area">
+<div class="btn-area" style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+    <a href="index.php" class="btn" style="background-color: #6c757d; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; display: inline-block;">&larr; New Bill</a>
     <button class="btn btn-print" onclick="window.print()">Print PDF</button>
     <button class="btn btn-wa" onclick="copyAndOpenWhatsApp()">Send to WhatsApp 📱</button>
 </div>

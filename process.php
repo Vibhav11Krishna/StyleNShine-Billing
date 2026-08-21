@@ -68,7 +68,7 @@ if (!$stmt->execute()) {
 $id = $stmt->insert_id;
 $stmt->close();
 
-// Redirect to invoice page
-header("Location: invoice.php?id=" . $id);
+// Redirect to edit page so you can adjust rates or add discounts before final generation
+header("Location: edit_bill.php?id=" . $id);
 exit;
 ?>
