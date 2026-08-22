@@ -7,10 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Collect form data
-$name    = trim($_POST['name'] ?? '');
-$phone   = trim($_POST['phone'] ?? '');
-$address = trim($_POST['address'] ?? '');
-$payment = trim($_POST['payment'] ?? 'Cash');
+$name        = trim($_POST['name'] ?? '');
+$phone       = trim($_POST['phone'] ?? '');
+$address     = trim($_POST['address'] ?? '');
+$payment     = trim($_POST['payment'] ?? 'Cash');
+
+// Capture whether it's a Parlour or Boutique bill from the submit buttons
+$action_type = trim($_POST['action_type'] ?? 'parlour'); 
+$bill_type   = ($action_type === 'boutique') ? 'Boutique Service' : 'Parlour Service';
 
 // Collect selected services
 $services = $_POST['services'] ?? [];
@@ -41,23 +45,24 @@ $total = round($subtotal, 2);
 // Final services string
 $services_text = implode(",", $service_pairs);
 
-// Prepare INSERT query
+// Prepare INSERT query (including bill_type)
 $stmt = $connection->prepare("
     INSERT INTO bills
-    (customer_name, customer_address, customer_phone, services, subtotal, total, payment_mode)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    (customer_name, customer_address, customer_phone, services, subtotal, total, payment_mode, bill_type)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 ");
 
-// Bind parameters: 4 strings (name,address,phone,services) + 2 doubles (subtotal,total) + string (payment)
+// Bind parameters: 4 strings (name,address,phone,services) + 2 doubles (subtotal,total) + 2 strings (payment, bill_type)
 $stmt->bind_param(
-    "ssssdds",
+    "ssssddss",
     $name,
     $address,
     $phone,
     $services_text,
     $subtotal,
     $total,
-    $payment
+    $payment,
+    $bill_type
 );
 
 if (!$stmt->execute()) {

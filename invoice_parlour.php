@@ -48,7 +48,7 @@ $dues = floatval($bill['dues'] ?? 0);
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Invoice #<?= $invoice_no ?> - Style N Shine</title>
+    <title>Parlour Invoice #<?= $invoice_no ?> - Style N Shine</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body { 
@@ -57,7 +57,7 @@ $dues = floatval($bill['dues'] ?? 0);
             margin: 0; 
             padding: 20px; 
         }
-        
+
         #invoiceCapture {
             max-width: 680px;
             margin: 20px auto;
@@ -72,7 +72,6 @@ $dues = floatval($bill['dues'] ?? 0);
             print-color-adjust: exact;
         }
 
-        /* Top Luxury Gradient Accent Bar */
         #invoiceCapture::after {
             content: "";
             position: absolute;
@@ -83,7 +82,6 @@ $dues = floatval($bill['dues'] ?? 0);
             background: linear-gradient(90deg, #003366, #3b82f6, #003366);
         }
 
-        /* Much Clearer Background Watermark Logo */
         #invoiceCapture::before {
             content: "";
             position: absolute;
@@ -107,7 +105,6 @@ $dues = floatval($bill['dues'] ?? 0);
             z-index: 7;
         }
 
-        /* Header Layout with Saree & Boutique Dress Images */
         .invoice-header-wrapper {
             display: flex;
             align-items: center;
@@ -116,7 +113,7 @@ $dues = floatval($bill['dues'] ?? 0);
             padding-bottom: 18px;
             margin-bottom: 22px;
         }
-        .side-boutique-img {
+        .side-img {
             width: 65px;
             height: 85px;
             object-fit: cover;
@@ -152,7 +149,7 @@ $dues = floatval($bill['dues'] ?? 0);
             margin-top: 4px; 
             font-weight: 500;
         }
-        
+
         .bill-meta { 
             display: flex; 
             justify-content: space-between; 
@@ -169,7 +166,7 @@ $dues = floatval($bill['dues'] ?? 0);
         table { width: 100%; border-collapse: collapse; margin-bottom: 18px; border-radius: 8px; overflow: hidden; }
         table th { background: #003366 !important; color: #fff !important; padding: 12px 14px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.3px; }
         table td { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; font-size: 13px; color: #334155; }
-        
+
         .subtotal-row td, .discount-row td {
             font-size: 13px;
             color: #64748b;
@@ -208,7 +205,7 @@ $dues = floatval($bill['dues'] ?? 0);
             font-weight: bold;
             color: #c62828 !important;
         }
-        
+
         .amt-words { 
             font-size: 12px; 
             font-style: italic; 
@@ -233,26 +230,12 @@ $dues = floatval($bill['dues'] ?? 0);
         }
         .promo-footer h4 { margin: 0; color: #003366; font-size: 13px; font-weight: 600; }
 
-        /* Bottom Split: Terms on Left, Signature on Right */
         .signature-section { 
             display: flex; 
-            justify-content: space-between; 
-            align-items: flex-start; 
-            margin-top: 22px;
-            gap: 20px;
+            justify-content: flex-end; 
+            align-items: flex-end; 
+            margin-top: 30px;
         }
-        .terms-box {
-            flex: 1;
-            font-size: 9.5px;
-            color: #64748b;
-            line-height: 1.5;
-            background: #f8fafc;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-        .terms-box strong { color: #003366; display: block; margin-bottom: 4px; font-size: 10.5px; font-weight: 700; }
-        
         .sig-box { 
             text-align: right; 
             flex-shrink: 0;
@@ -268,7 +251,7 @@ $dues = floatval($bill['dues'] ?? 0);
             margin-left: auto;
         }
         .sig-line { border-top: 1.5px solid #64748b; width: 100%; margin-top: 4px; }
-        
+
         .badge-paid { background: #dcfce7; color: #15803d; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 10.5px; text-transform: uppercase; display: inline-block; letter-spacing: 0.5px; border: 1px solid #bbf7d0; }
         .badge-due { background: #ffebee; color: #c62828; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 10.5px; text-transform: uppercase; display: inline-block; letter-spacing: 0.5px; border: 1px solid #ffcdd2; }
 
@@ -277,7 +260,7 @@ $dues = floatval($bill['dues'] ?? 0);
         .btn:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
         .btn-wa { background: #25D366; color: #fff; }
         .btn-print { background: #003366; color: #fff; }
-        
+
         @media print { 
             body { background: #fff; padding: 0; }
             .btn-area, .btn { display: none !important; }
@@ -289,19 +272,19 @@ $dues = floatval($bill['dues'] ?? 0);
 
 <div id="invoiceCapture">
     <div class="invoice-content">
-        <!-- Header: Saree Dress Image (Left), Logo + Brand (Center), Saree Dress Image (Right) -->
+        <!-- Header with Parlour Side Images -->
         <div class="invoice-header-wrapper">
-            <!-- Left Saree / Designer Dress Image -->
-            <img src="./assets/lehenga.png" alt="Saree Boutique Left" class="side-boutique-img" onerror="this.style.display='none';">
+            <img src="./assets/parlour_left.png" alt="Parlour Left" class="side-img" onerror="this.style.display='none';">
 
             <div class="header-center">
                 <img src="assets/logo.png" alt="Main Logo" class="main-logo">
-                <div class="brand"><h1>Style N Shine Studio</h1></div>
+                <div class="brand">
+                    <h1>Style N Shine Studio</h1>
+                </div>
                 <div class="salon-info"><?= $salon_address ?> | Ph: +91 9876543210</div>
             </div>
 
-            <!-- Right Saree / Designer Dress Image -->
-            <img src="./assets/suits.png" alt="Saree Boutique Right" class="side-boutique-img" onerror="this.style.display='none';">
+            <img src="./assets/parlour_right.png" alt="Parlour Right" class="side-img" onerror="this.style.display='none';">
         </div>
 
         <div class="bill-meta">
@@ -316,7 +299,7 @@ $dues = floatval($bill['dues'] ?? 0);
             <div style="text-align: right;">
                 <span style="font-size: 12px; color: #475569;"><strong>INVOICE:</strong> #<?= $invoice_no ?></span><br>
                 <span style="font-size: 12px; color: #475569;"><strong>DATE:</strong> <?= date("d-M-Y", strtotime($bill['created_at'])) ?></span><br>
-                <span style="font-size: 12px; color: #475569;"><strong>TYPE:</strong> <?= htmlspecialchars($bill['bill_type'] ?? 'Parlour & Boutique') ?></span><br>
+                <span style="font-size: 12px; color: #475569;"><strong>TYPE:</strong> Beauty Parlour</span><br>
                 <div style="margin-top: 4px;">
                     <?php if ($dues > 0): ?>
                         <span class="badge-due">DUE: ₹<?= number_format($dues, 2) ?></span>
@@ -330,7 +313,7 @@ $dues = floatval($bill['dues'] ?? 0);
         <table>
             <thead>
                 <tr>
-                    <th>Service / Saree & Garment Description</th>
+                    <th>Salon Service & Treatment Description</th>
                     <th style="text-align:right;">Amount (₹)</th>
                 </tr>
             </thead>
@@ -349,10 +332,10 @@ $dues = floatval($bill['dues'] ?? 0);
                     $subtotal += $sPrice;
                     echo "<tr><td>".trim($details[0])."</td><td style='text-align:right;'>".number_format($sPrice, 2)."</td></tr>";
                 }
-                
+
                 $discount = isset($bill['discount']) ? floatval($bill['discount']) : 0.00;
                 ?>
-                
+
                 <tr class="subtotal-row">
                     <td>Subtotal</td>
                     <td style="text-align:right;"><?= number_format($subtotal, 2) ?></td>
@@ -389,23 +372,11 @@ $dues = floatval($bill['dues'] ?? 0);
         </div>
 
         <div class="promo-footer">
-            <h4>We are open Monday through Saturday. Closed on Sundays. Thank you for shopping with us! ✨</h4>
+            <h4>Thank you for choosing Style N Shine Beauty Salon! ✨ Pamper yourself again soon.</h4>
         </div>
 
-        
-
-        <!-- Terms on Left, Signature on Right with Signature Image -->
+        <!-- Authorized Signature Section -->
         <div class="signature-section">
-            <div class="terms-box">
-                <strong>Terms & Conditions:</strong>
-                • <strong>Fitting & Delivery:</strong> Final approval needed at trial. No responsibility for fit changes from weight fluctuations.<br>
-                • <strong>Pickup:</strong> Collect within 30 days of promised date or pay storage fees.<br>
-                • <strong>Alterations:</strong> 3 free alterations within 7 days of pickup; extra fee for subsequent requests.<br>
-                • <strong>Cancellations:</strong> No changes or cancellations once cutting/embroidery starts.<br>
-                • <strong>Exchanges:</strong> Within 7 days with receipt and tags (store credit/exchange only, no cash refunds).<br>
-                • <strong>Non-Eligible Items:</strong> No exchanges on sale items or altered/worn/washed goods.
-            </div>
-            
             <div class="sig-box">
                 <img src="assets/signature.png" alt="Authorized Signature" class="auth-sign-img" onerror="this.style.display='none';">
                 <div class="sig-line"></div>
@@ -426,24 +397,24 @@ async function copyAndOpenWhatsApp() {
     const element = document.getElementById('invoiceCapture');
     const btn = document.querySelector('.btn-wa');
     btn.innerText = "Copying Invoice...";
-    
+
     try {
         const canvas = await html2canvas(element, { backgroundColor: "#ffffff", scale: 2, useCORS: true });
         canvas.toBlob(async (blob) => {
             try {
                 const item = new ClipboardItem({ "image/png": blob });
                 await navigator.clipboard.write([item]);
-                
+
                 btn.innerText = "Send to WhatsApp 📱";
-                
+
                 const phoneNumber = "<?= $clean_phone ?>";
                 const duesAmount = <?= $dues ?>;
                 let duesText = duesAmount > 0 ? " Your pending balance is ₹" + duesAmount.toFixed(2) + "." : " Your bill is fully paid.";
-                const message = encodeURIComponent("Hello <?= htmlspecialchars($bill['customer_name']) ?>! Thank you for visiting Style N Shine Boutique & Salon. Here is your bill #<?= $invoice_no ?>." + duesText);
-                
+                const message = encodeURIComponent("Hello <?= htmlspecialchars($bill['customer_name']) ?>! Thank you for visiting Style N Shine Parlour. Here is your invoice #<?= $invoice_no ?>." + duesText);
+
                 let waUrl = `https://wa.me/${phoneNumber}?text=${message}`;
                 window.open(waUrl, "_blank");
-                
+
                 alert("Invoice copied! WhatsApp chat opened with the customer's number. Press Ctrl+V in the chat to paste and send the image.");
             } catch (clipErr) {
                 btn.innerText = "Send to WhatsApp 📱";

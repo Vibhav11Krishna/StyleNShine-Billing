@@ -20,12 +20,12 @@ $search = trim($_GET['q'] ?? '');
 
 $where = [];
 $params = [];
-$types   = '';
+$types  = '';
 
 if ($month !== '') {
     $where[] = "DATE_FORMAT(created_at,'%Y-%m') = ?";
     $params[] = $month;
-    $types   .= 's';
+    $types  .= 's';
 }
 
 if ($search !== '') {
@@ -35,7 +35,7 @@ if ($search !== '') {
     $params[] = $search; 
     $params[] = $search; 
     $params[] = $search;
-    $types   .= 'sss';
+    $types  .= 'sss';
 }
 
 $sql = "SELECT * FROM bills";
@@ -66,7 +66,7 @@ body {
     color: #333;
 }
 
-/* NEW LOGO & BACK BUTTON SECTION */
+/* LOGO & BACK BUTTON SECTION */
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -125,11 +125,31 @@ input[type="month"], input[type="text"] {
     cursor: pointer;
     font-weight: bold;
 }
-.btn { background: #003366; color: #fff; text-decoration: none; display: inline-block; font-size: 14px; }
+.btn { background: #003366; color: #fff; text-decoration: none; display: inline-block; font-size: 14px; text-align: center; }
 .btn-clear { background: #fff; color: #003366; border: 2px solid #003366; }
+.btn-edit { background: #d97706; color: #fff; }
+.btn-edit:hover { background: #b45309; }
 
-.delete-btn { background:#cc0000; color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; }
+.delete-btn { background:#cc0000; color:#fff; border:none; padding:8px 14px; border-radius:6px; cursor:pointer; font-weight: bold; }
 .delete-btn:hover{ background:#ff3333; }
+
+/* Badge styling for bill types */
+.badge-boutique {
+    background: #e1bee7;
+    color: #4a148c;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.badge-parlour {
+    background: #c8e6c9;
+    color: #1b5e20;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
 
 table {
     width: 100%;
@@ -158,32 +178,20 @@ table tr:nth-child(even) {
     background: #e8f5e9;
     border-radius: 6px;
 }
+
 /* ---------- TABLETS ---------- */
 @media (max-width: 1024px) {
-
-  body {
-    padding: 12px;
-  }
-
-  .container {
-    padding: 18px;
-  }
-
-  form {
-    gap: 6px;
-  }
+  body { padding: 12px; }
+  .container { padding: 18px; }
 }
-
 
 /* ---------- MOBILE — STRUCTURED UI ---------- */
 @media (max-width: 768px) {
-
   body {
     padding: 10px;
     background: #ffffff;
   }
 
-  /* Top Navigation */
   .top-nav {
     width: 100%;
     flex-direction: column;
@@ -201,10 +209,8 @@ table tr:nth-child(even) {
     padding: 12px;
     border-radius: 10px;
     font-size: 13px;
-    letter-spacing: .3px;
   }
 
-  /* Container */
   .container {
     padding: 16px;
     border-radius: 14px;
@@ -212,30 +218,9 @@ table tr:nth-child(even) {
 
   h2 {
     font-size: 17px;
-    margin-top: 4px;
-    margin-bottom: 14px;
-    font-weight: 700;
-    letter-spacing: .4px;
-  }
-
-  /* Section Wrapper */
-  .section-block {
-    background: #f5f7ff;
-    border: 1px solid #d8e0f3;
-    border-radius: 12px;
-    padding: 12px;
     margin-bottom: 14px;
   }
 
-  .section-title {
-    font-size: 13px;
-    font-weight: 800;
-    color: #003366;
-    margin-bottom: 6px;
-    letter-spacing: .4px;
-  }
-
-  /* Filters / Form */
   form {
     flex-direction: column;
     width: 100%;
@@ -254,24 +239,21 @@ table tr:nth-child(even) {
 
   .btn,
   button,
-  .btn-clear {
+  .btn-clear,
+  .btn-edit {
     width: 100%;
     padding: 12px;
     border-radius: 10px;
     font-size: 13px;
     font-weight: 700;
-    text-align: center;
   }
 
-  /* Status Message */
   .msg {
     font-size: 13px;
     padding: 10px;
     border-radius: 10px;
-    margin-bottom: 12px;
   }
 
-  /* ---------- TABLE → CARD VIEW ---------- */
   table {
     border: 0;
     margin-top: 4px;
@@ -307,38 +289,14 @@ table tr:nth-child(even) {
     margin-right: 10px;
   }
 
-  /* Action Button */
   .delete-btn {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin-top: 4px;
     font-size: 13px;
     border-radius: 10px;
   }
 }
-
-
-/* ---------- VERY SMALL PHONES ---------- */
-@media (max-width: 420px) {
-
-  h2 {
-    font-size: 16px;
-  }
-
-  .top-nav img {
-    max-width: 62px;
-  }
-
-  table td {
-    font-size: 12px;
-  }
-
-  .btn,
-  button {
-    font-size: 12px;
-  }
-}
-
 </style>
 </head>
 
@@ -346,72 +304,86 @@ table tr:nth-child(even) {
 
 <div class="top-nav">
     <img src="assets/logo.png" alt="Style N Shine Logo">
-    <a href="index.php" class="back-link">← Back to Billing</a>
+    <a href="index.php" class="back-link">&larr; Back to Billing</a>
 </div>
 
 <div class="container">
 
-  <h2>All Bill Records</h2>
+    <h2>All Bill Records</h2>
 
-  <?php if (!empty($msg)): ?>
-    <div class="msg"><?= htmlspecialchars($msg) ?></div>
-  <?php endif; ?>
+    <?php if (!empty($msg)): ?>
+        <div class="msg"><?= htmlspecialchars($msg) ?></div>
+    <?php endif; ?>
 
-  <form method="get">
-    <input type="month" name="month" value="<?=htmlspecialchars($month)?>">
-    <input type="text" name="q" placeholder="Search customer/phone..." value="<?=htmlspecialchars($search)?>">
-    <button class="btn" type="submit">Filter</button>
-    <a class="btn btn-clear" href="view_bills.php">Reset</a>
-  </form>
+    <form method="get">
+        <input type="month" name="month" value="<?=htmlspecialchars($month)?>">
+        <input type="text" name="q" placeholder="Search customer/phone..." value="<?=htmlspecialchars($search)?>">
+        <button class="btn" type="submit">Filter</button>
+        <a class="btn btn-clear" href="view_bills.php">Reset</a>
+    </form>
 
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Date</th>
-        <th>Customer</th>
-        <th>Phone</th>
-        <th>Services</th>
-        <th>Total</th>
-        <th>Invoice</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Type</th>
+                <th>Services</th>
+                <th>Total</th>
+                <th>Invoice</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
 
-    <tbody>
-      <?php if(empty($rows)): ?>
-        <tr><td colspan="8" style="text-align:center;">No records found.</td></tr>
-      <?php else: ?>
-          <?php foreach($rows as $r): ?>
-          <tr>
-            <td><?= $r['id'] ?></td>
-            <td><?= htmlspecialchars(date("d M Y", strtotime($r['created_at']))) ?></td>
-            <td><?= htmlspecialchars($r['customer_name']) ?></td>
-            <td><?= htmlspecialchars($r['customer_phone']) ?></td>
-            <td style="max-width:250px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+        <tbody>
+            <?php if(empty($rows)): ?>
+                <tr><td colspan="10" style="text-align:center;">No records found.</td></tr>
+            <?php else: ?>
+                <?php foreach($rows as $r): ?>
                 <?php
-                    $services_list = explode(",", $r['services']);
-                    $service_names = [];
-                    foreach($services_list as $s){
-                        $parts = explode("|", $s);
-                        $service_names[] = $parts[0];
-                    }
-                    echo htmlspecialchars(implode(", ", $service_names));
+                    // Handle bill type checking and routing
+                    $bill_type = trim($r['bill_type'] ?? 'Parlour');
+                    $is_parlour = (stripos($bill_type, 'parlour') !== false || stripos($bill_type, 'salon') !== false);
+                    $invoice_file = $is_parlour ? 'invoice_parlour.php' : 'invoice.php';
+                    $badge_class = $is_parlour ? 'badge-parlour' : 'badge-boutique';
+                    $display_type = $is_parlour ? 'Parlour' : 'Boutique';
                 ?>
-            </td>
-            <td><strong>₹<?= number_format($r['total'], 2) ?></strong></td>
-            <td><a class="btn" href="invoice.php?id=<?= $r['id'] ?>">View</a></td>
-            <td>
-              <form method="post" onsubmit="return confirm('Delete permanently?');" style="margin:0;">
-                <input type="hidden" name="delete_id" value="<?= $r['id'] ?>">
-                <button class="delete-btn" type="submit">Delete</button>
-              </form>
-            </td>
-          </tr>
-          <?php endforeach; ?>
-      <?php endif; ?>
-    </tbody>
-  </table>
+                <tr>
+                    <td data-label="ID"><?= $r['id'] ?></td>
+                    <td data-label="Date"><?= htmlspecialchars(date("d M Y", strtotime($r['created_at']))) ?></td>
+                    <td data-label="Customer"><?= htmlspecialchars($r['customer_name']) ?></td>
+                    <td data-label="Phone"><?= htmlspecialchars($r['customer_phone']) ?></td>
+                    <td data-label="Type">
+                        <span class="<?= $badge_class ?>"><?= $display_type ?></span>
+                    </td>
+                    <td data-label="Services" style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+                        <?php
+                            $services_list = explode(",", $r['services']);
+                            $service_names = [];
+                            foreach($services_list as $s){
+                                $parts = explode("|", $s);
+                                $service_names[] = $parts[0];
+                            }
+                            echo htmlspecialchars(implode(", ", $service_names));
+                        ?>
+                    </td>
+                    <td data-label="Total"><strong>₹<?= number_format($r['total'], 2) ?></strong></td>
+                    <td data-label="Invoice"><a class="btn" href="<?= $invoice_file ?>?id=<?= $r['id'] ?>">View</a></td>
+                    <td data-label="Edit"><a class="btn btn-edit" href="edit_bill.php?id=<?= $r['id'] ?>">Edit</a></td>
+                    <td data-label="Delete">
+                        <form method="post" onsubmit="return confirm('Delete permanently?');" style="margin:0;">
+                            <input type="hidden" name="delete_id" value="<?= $r['id'] ?>">
+                            <button class="delete-btn" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
 
 </div>
 </body>
