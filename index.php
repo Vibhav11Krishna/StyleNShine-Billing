@@ -550,6 +550,8 @@ require 'config.php';
             <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Fall|119" data-price="119"> Fall</label><span class="price-label">₹119</span></div>
             <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Pico|19" data-price="19"> Pico</label><span class="price-label">₹19</span></div>
             <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Polish|79" data-price="79"> Polish</label><span class="price-label">₹79</span></div>
+            <div class="row"><label><input class="svc" type="checkbox" name="services[]" value="Alteration|49" data-price="49"> Alteration</label><span class="price-label">₹49</span></div>
+            
         </div>
       </div>
 
